@@ -1,0 +1,752 @@
+/* Container styles */
+
+.top-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.main {
+  width: 380px;
+  height: 600px;
+  max-height: 90vh;
+  background: #573b8a;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+#chk {
+  display: none;
+}
+
+/* ============================================ */
+/* DEFAULT STATE - LOGIN VIEW */
+/* ============================================ */
+
+/* Signup section - just a clickable label at top */
+.signup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110px;
+  background: #6d44b8;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px 20px 0 0;
+  transition: all .8s ease-in-out;
+}
+
+/* Hide signup title and form by default */
+.signup .active-title {
+  display: none;
+}
+
+/* Show signup label by default */
+.signup .switch-label {
+  color: #fff;
+  font-size: 2.3em;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 0;
+  transition: all .5s ease-in-out;
+  display: block;
+}
+
+.signup app-reactive-form {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Login section - main content area */
+.login {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 470px;
+  background: #f5f3f7;
+  border-radius: 50% 50% 0 0 / 8% 8% 0 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  transition: all .8s ease-in-out;
+}
+
+.login .switch-label {
+  color: #573b8a;
+  font-size: 2.5em;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 0 0 35px 0;
+  transition: all .5s ease-in-out;
+  display: block;
+}
+
+.login .active-title {
+  display: none;
+}
+
+/* Show login form by default */
+.login > div {
+  display: block !important;
+  opacity: 1;
+  width: 100%;
+}
+
+.login app-loginpage {
+  display: block !important;
+  opacity: 1;
+  width: 100%;
+}
+
+/* ============================================ */
+/* CHECKED STATE - SIGNUP VIEW */
+/* ============================================ */
+
+/* Expand signup to full view */
+#chk:checked ~ .signup {
+  height: calc(100% - 60px);
+  background: #573b8a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 20px;
+  border-radius: 20px 20px 0 0;
+  padding-bottom: 50px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+/* Show signup title when checked */
+#chk:checked ~ .signup .active-title {
+  display: block;
+  color: #fff;
+  font-size: 2.2em;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Hide signup label when checked */
+#chk:checked ~ .signup .switch-label {
+  display: none;
+}
+
+/* Show signup form when checked */
+#chk:checked ~ .signup app-reactive-form {
+  display: block !important;
+  opacity: 1;
+  pointer-events: auto;
+  width: 100%;
+  padding: 0 15px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  min-height: 0;
+}
+
+/* Shrink login to bottom label */
+#chk:checked ~ .login {
+  height: 60px;
+  border-radius: 50% 50% 0 0 / 8% 8% 0 0;
+  padding-top: 12px;
+  justify-content: center;
+  z-index: 2;
+  background: #f5f3f7;
+  pointer-events: none;
+}
+
+#chk:checked ~ .login .switch-label {
+  color: #573b8a;
+  font-size: 2em;
+  margin: 0;
+  display: block;
+  pointer-events: auto;
+  cursor: pointer;
+  position: relative;
+  z-index: 5;
+}
+
+/* Hide login form when signup is active */
+#chk:checked ~ .login > div {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#chk:checked ~ .login app-loginpage {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ============================================ */
+/* FORM COMPONENTS STYLING */
+/* ============================================ */
+
+/* Make app components block-level and full width */
+app-reactive-form,
+app-loginpage {
+  display: block;
+  width: 100%;
+}
+
+:host ::ng-deep app-reactive-form,
+:host ::ng-deep app-loginpage {
+  display: block;
+  width: 100%;
+}
+
+/* Center form content */
+app-reactive-form form,
+app-loginpage form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+:host ::ng-deep app-reactive-form form,
+:host ::ng-deep app-loginpage form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Input styling */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  height: 58px;
+  background: #e0dede;
+  display: block;
+  margin: 12px 0;
+  padding: 18px 22px;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  font-size: 1.05em;
+  box-sizing: border-box;
+  color: #333;
+}
+
+:host ::ng-deep app-reactive-form input[type="text"],
+:host ::ng-deep app-reactive-form input[type="email"],
+:host ::ng-deep app-reactive-form input[type="password"],
+:host ::ng-deep app-loginpage input[type="text"],
+:host ::ng-deep app-loginpage input[type="password"] {
+  width: 100%;
+  height: 58px;
+  background: #e0dede;
+  display: block;
+  margin: 12px 0;
+  padding: 18px 22px;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  font-size: 1.05em;
+  box-sizing: border-box;
+  color: #333;
+}
+
+input::placeholder {
+  color: #888;
+}
+
+:host ::ng-deep app-reactive-form input::placeholder,
+:host ::ng-deep app-loginpage input::placeholder {
+  color: #888;
+}
+
+/* Button styling */
+button[type="submit"] {
+  width: 100%;
+  height: 50px;
+  margin: 15px 0 20px 0;
+  display: block;
+  color: #fff;
+  background: #6d44b8;
+  font-size: 1.1em;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  transition: .2s ease-in;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+:host ::ng-deep app-reactive-form button[type="submit"],
+:host ::ng-deep app-loginpage button[type="submit"] {
+  width: 100%;
+  height: 50px;
+  margin: 15px 0 20px 0;
+  display: block;
+  color: #fff;
+  background: #6d44b8;
+  font-size: 1.1em;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  transition: .2s ease-in;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+button[type="submit"]:hover {
+  background: #7d54c8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(109, 68, 184, 0.4);
+}
+
+:host ::ng-deep app-reactive-form button[type="submit"]:hover,
+:host ::ng-deep app-loginpage button[type="submit"]:hover {
+  background: #7d54c8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(109, 68, 184, 0.4);
+}
+
+button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+:host ::ng-deep app-reactive-form button[type="submit"]:active,
+:host ::ng-deep app-loginpage button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+button[type="submit"]:disabled {
+  background: #9b7fd4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+:host ::ng-deep app-reactive-form button[type="submit"]:disabled,
+:host ::ng-deep app-loginpage button[type="submit"]:disabled {
+  background: #9b7fd4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Error messages */
+small.error {
+  display: block;
+  color: #ff6b6b;
+  font-size: 0.85em;
+  text-align: left;
+  margin: -8px 0 8px 0;
+  width: 100%;
+  font-weight: 500;
+}
+
+:host ::ng-deep app-reactive-form small.error,
+:host ::ng-deep app-loginpage small.error {
+  display: block;
+  color: #ff6b6b;
+  font-size: 0.85em;
+  text-align: left;
+  margin: -8px 0 8px 0;
+  width: 100%;
+  font-weight: 500;
+}
+
+/* Login options (remember me + forgot password) */
+.login-options {
+  width: 100%;
+  margin: 12px 0 18px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+:host ::ng-deep app-loginpage .login-options {
+  width: 100%;
+  margin: 12px 0 18px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95em;
+}
+
+.login-options .remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #555;
+}
+
+:host ::ng-deep app-loginpage .login-options .remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #555;
+}
+
+.login-options input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #6d44b8;
+}
+
+:host ::ng-deep app-loginpage .login-options input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #6d44b8;
+}
+
+.login-options .forgot {
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #6d44b8;
+  text-decoration: none;
+}
+
+:host ::ng-deep app-loginpage .login-options .forgot {
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #6d44b8;
+  text-decoration: none;
+}
+
+.login-options .forgot:hover {
+  text-decoration: underline;
+  color: #7d54c8;
+}
+
+:host ::ng-deep app-loginpage .login-options .forgot:hover {
+  text-decoration: underline;
+  color: #7d54c8;
+}
+
+/* ✅ SUCCESS MESSAGE OVERLAY - POSITIONED ABOVE EVERYTHING */
+.success-overlay {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 340px !important;
+  background-color: #4caf50 !important;
+  color: white !important;
+  padding: 20px 30px !important;
+  border-radius: 12px !important;
+  text-align: center !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  animation: successPopInOut 1s ease-in-out forwards !important;
+  z-index: 99999 !important;
+  pointer-events: none !important;
+}
+
+:host ::ng-deep app-reactive-form .success-overlay {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 340px !important;
+  background-color: #4caf50 !important;
+  color: white !important;
+  padding: 20px 30px !important;
+  border-radius: 12px !important;
+  text-align: center !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  animation: successPopInOut 1s ease-in-out forwards !important;
+  z-index: 99999 !important;
+  pointer-events: none !important;
+}
+
+@keyframes successPopInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  25% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  85% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+/* ============================================ */
+/* RESPONSIVE MEDIA QUERIES */
+/* ============================================ */
+
+/* Tablets and smaller laptops (max-width: 768px) */
+@media screen and (max-width: 768px) {
+  .top-container {
+    padding: 15px;
+  }
+
+  .main {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    min-height: 550px;
+  }
+
+  .signup .switch-label {
+    font-size: 2em;
+  }
+
+  .login .switch-label {
+    font-size: 2.2em;
+  }
+
+  #chk:checked ~ .signup .active-title {
+    font-size: 2.2em;
+    margin: 0 0 25px 0;
+  }
+
+  #chk:checked ~ .login .switch-label {
+    font-size: 2em;
+  }
+
+  .success-overlay,
+  :host ::ng-deep app-reactive-form .success-overlay {
+    width: 90% !important;
+    max-width: 320px !important;
+    font-size: 16px !important;
+    padding: 18px 25px !important;
+  }
+}
+
+/* Mobile phones (max-width: 480px) */
+@media screen and (max-width: 480px) {
+  .top-container {
+    padding: 10px;
+  }
+
+  .main {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 500px;
+    border-radius: 15px;
+  }
+
+  .signup {
+    height: 90px;
+    border-radius: 15px 15px 0 0;
+  }
+
+  .signup .switch-label {
+    font-size: 1.8em;
+  }
+
+  .login {
+    height: 400px;
+    padding-top: 35px;
+  }
+
+  .login .switch-label {
+    font-size: 2em;
+    margin: 0 0 25px 0;
+  }
+
+  #chk:checked ~ .signup {
+    height: calc(100% - 70px);
+    padding-top: 25px;
+  }
+
+  #chk:checked ~ .signup .active-title {
+    font-size: 1.9em;
+    margin: 0 0 20px 0;
+  }
+
+  #chk:checked ~ .login {
+    height: 70px;
+    padding-top: 15px;
+  }
+
+  #chk:checked ~ .login .switch-label {
+    font-size: 1.8em;
+  }
+
+  /* Form inputs */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  :host ::ng-deep app-reactive-form input[type="text"],
+  :host ::ng-deep app-reactive-form input[type="email"],
+  :host ::ng-deep app-reactive-form input[type="password"],
+  :host ::ng-deep app-loginpage input[type="text"],
+  :host ::ng-deep app-loginpage input[type="password"] {
+    height: 50px;
+    margin: 10px 0;
+    padding: 15px 18px;
+    font-size: 1em;
+    border-radius: 12px;
+  }
+
+  /* Form buttons */
+  button[type="submit"],
+  :host ::ng-deep app-reactive-form button[type="submit"],
+  :host ::ng-deep app-loginpage button[type="submit"] {
+    height: 45px;
+    margin: 12px 0 15px 0;
+    font-size: 1em;
+  }
+
+  /* Forms padding */
+  app-reactive-form form,
+  app-loginpage form,
+  :host ::ng-deep app-reactive-form form,
+  :host ::ng-deep app-loginpage form {
+    padding: 0 15px;
+  }
+
+  #chk:checked ~ .signup app-reactive-form {
+    padding: 0 10px;
+  }
+
+  /* Error messages */
+  small.error,
+  :host ::ng-deep app-reactive-form small.error,
+  :host ::ng-deep app-loginpage small.error {
+    font-size: 0.8em;
+    margin: -6px 0 6px 0;
+  }
+
+  /* Login options */
+  .login-options,
+  :host ::ng-deep app-loginpage .login-options {
+    margin: 10px 0 15px 0;
+    font-size: 0.85em;
+  }
+
+  .login-options .remember,
+  :host ::ng-deep app-loginpage .login-options .remember {
+    gap: 6px;
+  }
+
+  .login-options input[type="checkbox"],
+  :host ::ng-deep app-loginpage .login-options input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Success message */
+  .success-overlay,
+  :host ::ng-deep app-reactive-form .success-overlay {
+    width: 90% !important;
+    max-width: 280px !important;
+    font-size: 15px !important;
+    padding: 15px 20px !important;
+  }
+}
+
+/* Very small phones (max-width: 360px) */
+@media screen and (max-width: 360px) {
+  .main {
+    min-height: 480px;
+    border-radius: 12px;
+  }
+
+  .signup {
+    height: 80px;
+  }
+
+  .signup .switch-label {
+    font-size: 1.6em;
+  }
+
+  .login {
+    height: 380px;
+    padding-top: 30px;
+  }
+
+  .login .switch-label {
+    font-size: 1.8em;
+    margin: 0 0 20px 0;
+  }
+
+  #chk:checked ~ .signup {
+    height: calc(100% - 65px);
+    padding-top: 20px;
+  }
+
+  #chk:checked ~ .signup .active-title {
+    font-size: 1.7em;
+    margin: 0 0 18px 0;
+  }
+
+  #chk:checked ~ .login {
+    height: 65px;
+  }
+
+  #chk:checked ~ .login .switch-label {
+    font-size: 1.6em;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  :host ::ng-deep app-reactive-form input[type="text"],
+  :host ::ng-deep app-reactive-form input[type="email"],
+  :host ::ng-deep app-reactive-form input[type="password"],
+  :host ::ng-deep app-loginpage input[type="text"],
+  :host ::ng-deep app-loginpage input[type="password"] {
+    height: 48px;
+    margin: 8px 0;
+    padding: 14px 16px;
+    font-size: 0.95em;
+  }
+
+  button[type="submit"],
+  :host ::ng-deep app-reactive-form button[type="submit"],
+  :host ::ng-deep app-loginpage button[type="submit"] {
+    height: 42px;
+    margin: 10px 0 12px 0;
+    font-size: 0.95em;
+  }
+
+  .success-overlay,
+  :host ::ng-deep app-reactive-form .success-overlay {
+    width: 85% !important;
+    font-size: 14px !important;
+    padding: 12px 18px !important;
+  }
+}

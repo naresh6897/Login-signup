@@ -1,0 +1,36 @@
+<form [formGroup]="loginform" (ngSubmit)="onLogin()">
+
+  @let usernameCtrl = loginform.get('username');   
+  @let passwordCtrl = loginform.get('password');  
+
+  <input
+    type="text"
+    placeholder="User name"
+    formControlName="username"
+    autocomplete="username"    
+  >
+
+  @if (submitted && usernameCtrl?.errors?.['required']) {  
+    <small class="error">Username is required</small>
+  }
+
+  <input
+    type="password"
+    placeholder="Password"
+    formControlName="password"
+    autocomplete="current-password" >
+
+  @if (submitted && passwordCtrl?.errors?.['required']) {  
+    <small class="error">Password is required</small>
+  }
+
+  <div class="login-options">
+    <label class="remember">
+      <input type="checkbox" formControlName="rememberMe">
+      Remember me
+    </label>
+    <a routerLink="/forgot-password" class="forgot">Forgot password?</a>
+  </div>
+
+  <button type="submit" [disabled]="submitted && loginform.invalid">Login</button>
+</form>

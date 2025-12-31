@@ -1,0 +1,61 @@
+<div class="container mt-4">
+    <div class="row">
+        <div [class]="addToCartList.length ==0 ?'col-12':'col-9'">
+            <h2 class="mb-4 text-center">Our Products</h2>
+            <div class="row">
+                <div class="col-3">
+                    <select class="form-select" (change)="onCategoryChanges()" [(ngModel)]="selectedCategory">
+                        <option value="Electronics">Electronics</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Home Appliances">Home Appliances</option>
+                        <option value="Electronics">Electronics</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <input type="text" (ngModelChange)="onSearch($event)" [(ngModel)]="searchText" class="form-control"
+                        placeholder="serach by name">
+                </div>
+            </div>
+            <div class="row g-4">
+                @for (item of filteredProductList; track $index) {
+                <div class="col-md-4 col-sm-6">
+                    <div class="card h-100 shadow-sm border-0 product-card">
+                        <img [src]="item.thumbnailImage" class="card-img-top product-img" alt="iPhone 15" />
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mb-2">{{item.productShortName}}</h5>
+                            <p class="text-muted small mb-1">{{item.categoryName}}</p>
+                            <p class="card-text small text-secondary">
+                                {{item.desscription}}
+                            </p>
+                            <div class="mt-auto">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold fs-5 text-success">₹{{item.price}}</span>
+                                    <span
+                                        [class]="item.isInStock ?'badge bg-success':'badge bg-danger'">{{item.isInStock
+                                        ? 'In Stock':"Out Of Stock"}}</span>
+                                </div>
+                                <button class="btn btn-primary w-100" (click)="addToCart(item)">
+                                    <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+
+            </div>
+        </div>
+        @if (addToCartList.length != 0) {
+              <div class="col-3">
+            <h2 class="mb-4 text-center">  Cart Items</h2>
+                <ul>
+                    @for (item of addToCartList; track $index) {
+                        <li> {{item.productShortName}}</li>
+                    }
+                    
+                </ul>
+        </div>
+        } 
+    </div>
+
+</div>

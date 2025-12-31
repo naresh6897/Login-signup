@@ -2,9 +2,10 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
+import { CookieService } from './cookie-service';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
+  providers: [CookieService,
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes)
   ]

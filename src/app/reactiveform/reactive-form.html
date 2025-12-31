@@ -1,0 +1,83 @@
+<form [formGroup]="signup" (ngSubmit)="onSignup()">
+  @let fullnameCtrl = signup.get('fullname');
+  @let usernameCtrl = signup.get('username');
+  @let emailCtrl = signup.get('email');
+  @let passwordCtrl = signup.get('password');
+
+  <input
+    type="text"
+    placeholder="Fullname"
+    formControlName="fullname"
+    autocomplete="name"
+  />
+
+  @if (submitted) {
+    @if (fullnameCtrl?.errors?.['required']) {
+      <small class="error">Full name is required</small>
+    }
+    @if (fullnameCtrl?.errors?.['pattern']) {
+      <small class="error">Full name must contain only letters</small>
+    }
+  }
+
+  <input
+    type="text"
+    placeholder="Username"
+    formControlName="username"
+    autocomplete="username"
+  />
+
+  @if (submitted) {
+    @if (usernameCtrl?.errors?.['required']) {
+      <small class="error">Username is required</small>
+    }
+    @if (usernameCtrl?.errors?.['pattern']) {
+      <small class="error">Only letters and numbers allowed</small>
+    }
+    @if (usernameCtrl?.errors?.['minlength'] || usernameCtrl?.errors?.['maxlength']) {
+      <small class="error">Username must be between 4 and 10 characters</small>
+    }
+  }
+
+  <input
+    type="email"
+    placeholder="Email"
+    formControlName="email"
+    autocomplete="email"
+  />
+
+  @if (submitted) {
+    @if (emailCtrl?.errors?.['required']) {
+      <small class="error">Email is required</small>
+    }
+    @if (emailCtrl?.errors?.['email']) {
+      <small class="error">Enter a valid email</small>
+    }
+  }
+
+  <input
+    type="password"
+    placeholder="Password"
+    formControlName="password"
+    autocomplete="new-password"
+  />
+
+  @if (submitted) {
+    @if (passwordCtrl?.errors?.['required']) {
+      <small class="error">Password is required</small>
+    }
+    @if (passwordCtrl?.errors?.['maxlength']) {
+      <small class="error">Password max 10 characters</small>
+    }
+    @if (passwordCtrl?.errors?.['pattern']) {
+      <small class="error">Must contain 1 number and 1 special character</small>
+    }
+  }
+
+  <button type="submit" [disabled]="submitted && signup.invalid">Sign up</button>
+</form>
+
+<!-- ✅ SUCCESS MESSAGE OUTSIDE FORM -->
+@if (successMsg) {
+  <div class="success-overlay">{{ successMsg }}</div>
+}
