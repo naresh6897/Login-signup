@@ -14,67 +14,61 @@ export class Dashboard {
   selectedCategory: string = '';
   searchText: string = '';
 
-  productList: IProduct[] = [
+  productList: IPorduct[] = [
     {
       productShortName: 'iPhone 15',
       longName: 'Apple iPhone 15 Pro 128GB - Titanium Gray',
       categoryName: 'Electronics',
-      description:
-        'Experience the latest iPhone with A17 Pro chip, dynamic island, and an advanced camera system.',
+      desscription: 'Experience the latest iPhone with A17 Pro chip, dynamic island, and an advanced camera system.',
       sku: 'ELEC-IP15-128',
       price: 124999,
-      thumbnailImage:
-        'https://images.macrumors.com/article-new/2023/09/iphone-15-pro-gray.jpg',
+      thumbnailImage: 'https://images.macrumors.com/article-new/2023/09/iphone-15-pro-gray.jpg',
       isInStock: true,
     },
     {
       productShortName: 'iPhone 14',
       longName: 'Apple iPhone 14 Pro 128GB - Titanium Gray',
       categoryName: 'Electronics',
-      description:
-        'Experience the latest iPhone with an advanced camera system and powerful performance.',
-      sku: 'ELEC-IP14-128',
-      price: 114999,
-      thumbnailImage:
-        'https://techcrunch.com/wp-content/uploads/2022/09/Apple-iphone-14-Pro-review-1.jpeg',
+      desscription: 'Experience the latest iPhone with A17 Pro chip, dynamic island, and an advanced camera system.',
+      sku: 'ELEC-IP15-128',
+      price: 124999,
+      thumbnailImage: 'https://techcrunch.com/wp-content/uploads/2022/09/Apple-iphone-14-Pro-review-1.jpeg',
       isInStock: true,
     },
     {
       productShortName: 'iPhone 13',
       longName: 'Apple iPhone 13 Pro 128GB - Titanium Gray',
       categoryName: 'Electronics',
-      description:
-        'Experience premium performance and camera quality with iPhone 13 Pro.',
-      sku: 'ELEC-IP13-128',
-      price: 104999,
-      thumbnailImage:
-        'https://img.photographyblog.com/reviews/apple_iphone_13_pro/apple_iphone_13_pro_01.jpg',
+      desscription: 'Experience the latest iPhone with A17 Pro chip, dynamic island, and an advanced camera system.',
+      sku: 'ELEC-IP15-128',
+      price: 124999,
+      thumbnailImage: 'https://img.photographyblog.com/reviews/apple_iphone_13_pro/apple_iphone_13_pro_01.jpg',
       isInStock: true,
     }
   ];
 
-  addToCartList: IProduct[] = [];
-  filteredProductList: IProduct[] = [];
+  addToCartList: IPorduct[] = [];
+  filteredProductList: IPorduct[] = [];
 
   constructor(private router: Router) {
     this.filteredProductList = this.productList;
   }
 
-  onCategoryChanges(): void {
+  onCategoryChanges() {
     this.filteredProductList = this.productList.filter(
-      p => p.categoryName === this.selectedCategory
+      m => m.categoryName === this.selectedCategory
     );
   }
 
-  onSearch(searchVal: string): void {
+  onSearch(searchVal: string) {
     this.filteredProductList = this.productList.filter(
-      p => p.productShortName.toLowerCase().startsWith(searchVal.toLowerCase())
+      m => m.productShortName.toLowerCase().startsWith(searchVal.toLowerCase())
     );
   }
 
-  addToCart(item: IProduct): void {
+  addToCart(item: IPorduct) {
     const isExist = this.addToCartList.find(
-      p => p.productShortName === item.productShortName
+      m => m.productShortName === item.productShortName
     );
 
     if (isExist) {
@@ -85,18 +79,21 @@ export class Dashboard {
     }
   }
 
+  // 🔴 LOGOUT LOGIC
+  logout() {
+    // remove login session only
+    localStorage.removeItem('loggedInUser');
 
-  logout(): void {
-    localStorage.removeItem('isLoggedIn');
+    // DO NOT delete rememberMe cookie
     this.router.navigateByUrl('/');
   }
 }
 
-interface IProduct {
+interface IPorduct {
   productShortName: string;
   longName: string;
   categoryName: string;
-  description: string;
+  desscription: string;
   sku: string;
   price: number;
   thumbnailImage: string;
