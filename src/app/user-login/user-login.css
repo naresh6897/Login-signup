@@ -12,15 +12,20 @@
 }
 
 .main {
-  width: 380px;
-  height: 600px;
-  max-height: 90vh;
+  width: 100%;
+
+  /* ✅ Responsive scaling without UI change */
+  max-width: clamp(380px, 35vw, 520px);
+  height: clamp(600px, 70vh, 720px);
+
   background: #573b8a;
   overflow: hidden;
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   position: relative;
 }
+
+
 
 #chk {
   display: none;
@@ -748,5 +753,33 @@ small.error {
     width: 85% !important;
     font-size: 14px !important;
     padding: 12px 18px !important;
+  }
+}
+
+/* ============================= */
+/* DEVICE-BASED SCALING ONLY */
+/* ============================= */
+
+/* Tablets */
+@media screen and (min-width: 768px) {
+  .main {
+    max-width: 420px;
+    height: 640px;
+  }
+}
+
+/* Laptops & desktops */
+@media screen and (min-width: 1024px) {
+  .main {
+    max-width: 480px;
+    height: 680px;
+  }
+}
+
+/* Large screens */
+@media screen and (min-width: 1440px) {
+  .main {
+    max-width: 520px;
+    height: 720px;
   }
 }

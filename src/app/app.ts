@@ -1,15 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UserLogin } from "./user-login/user-login";
-import { Dashboard } from './dashboard/dashboard';
-import { ReactiveForm } from "./reactiveform/reactive-form";
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  template: `<router-outlet></router-outlet>`
 })
-export class App {
-  protected readonly title = signal('Login-signup');
-}
+export class App {}
