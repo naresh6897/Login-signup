@@ -33,13 +33,13 @@ export class Loginpage implements OnInit {
   }
 
   ngOnInit(): void {
-    // Load users data from localStorage
+    
     const localdata = localStorage.getItem('signupdata');
     this.usersdata = localdata ? JSON.parse(localdata) : [];
     
-    console.log('Loaded users:', this.usersdata); // DEBUG
+    console.log('Loaded users:', this.usersdata); 
 
-    // Load saved login credentials if "Remember Me" was checked
+    
     const saved = this.cookieService.get('rememberLogin');
     if (saved) {
       try {
@@ -63,7 +63,7 @@ export class Loginpage implements OnInit {
       return;
     }
 
-    // Reload users data to ensure we have the latest data
+    
     const localdata = localStorage.getItem('signupdata');
     this.usersdata = localdata ? JSON.parse(localdata) : [];
 
@@ -71,26 +71,25 @@ export class Loginpage implements OnInit {
     const password = this.loginform.value.password.trim();
     const rememberMe = this.loginform.value.rememberMe;
 
-    console.log('Login attempt:', { username, password }); // DEBUG
-    console.log('Available users:', this.usersdata); // DEBUG
+    console.log('Login attempt:', { username, password }); 
+    console.log('Available users:', this.usersdata); 
 
-    // Find matching user
+    
     const ifuserexist = this.usersdata.find(
       (userobj: any) => {
         const match = userobj.username === username && userobj.password === password;
-        console.log(`Checking user: ${userobj.username}, Match: ${match}`); // DEBUG
+        console.log(`Checking user: ${userobj.username}, Match: ${match}`); 
         return match;
       }
     );
 
-    console.log('User found:', ifuserexist); // DEBUG
+    console.log('User found:', ifuserexist); 
 
     if (!ifuserexist) {
       alert('Invalid credentials');
       return;
     }
 
-    // Handle "Remember Me"
     if (rememberMe) {
       this.cookieService.set(
         'rememberLogin',
@@ -101,9 +100,9 @@ export class Loginpage implements OnInit {
       this.cookieService.delete('rememberLogin');
     }
 
-    console.log('Navigating to dashboard...'); // DEBUG
+    console.log('Navigating to dashboard...'); 
     
-    // Navigate to dashboard
+   
     this.router.navigateByUrl('/dashboard').then(
       (success) => console.log('Navigation success:', success),
       (error) => console.error('Navigation error:', error)

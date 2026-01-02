@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ForgotPasswordComponent } from './forgot-password';
 import { Component } from '@angular/core';
 
-// Create a mock RouterLink directive
+
 @Component({
   selector: 'a[routerLink]',
   template: '<ng-content></ng-content>',
@@ -20,10 +20,10 @@ describe('ForgotPasswordComponent', () => {
   let localStorageMock: { [key: string]: string };
 
   beforeEach(async () => {
-    // Create mock router
+   
     mockRouter = jasmine.createSpyObj('Router', ['navigateByUrl']);
 
-    // Mock localStorage
+    
     localStorageMock = {};
     
     spyOn(localStorage, 'getItem').and.callFake((key: string) => {
@@ -38,7 +38,7 @@ describe('ForgotPasswordComponent', () => {
       localStorageMock = {};
     });
 
-    // Override the component's imports to replace RouterLink with mock
+   
     await TestBed.overrideComponent(ForgotPasswordComponent, {
       set: {
         imports: [ReactiveFormsModule, MockRouterLinkDirective, CommonModule]
@@ -53,7 +53,7 @@ describe('ForgotPasswordComponent', () => {
     fixture = TestBed.createComponent(ForgotPasswordComponent);
     component = fixture.componentInstance;
     
-    // Reset mocks before each test
+   
     mockRouter.navigateByUrl.and.returnValue(Promise.resolve(true));
   });
 
@@ -137,22 +137,22 @@ describe('ForgotPasswordComponent', () => {
     it('should validate new password with pattern', () => {
       const password = component.forgotPasswordForm.get('newPassword');
       
-      // Invalid: no special character
+      
       password?.setValue('pass123');
       expect(password?.hasError('pattern')).toBe(true);
       
-      // Invalid: no number
+      
       password?.setValue('pass@word');
       expect(password?.hasError('pattern')).toBe(true);
       
-      // Valid: has number and special character
+      
       password?.setValue('Pass@123');
       expect(password?.valid).toBe(true);
     });
 
     it('should validate new password max length', () => {
       const password = component.forgotPasswordForm.get('newPassword');
-      // Set a password with 11 characters (exceeds maxLength of 10)
+      
       password?.setValue('Pass@123456');
       
       expect(password?.hasError('maxlength')).toBe(true);
@@ -269,14 +269,14 @@ describe('ForgotPasswordComponent', () => {
       ];
       localStorageMock['signupdata'] = JSON.stringify(mockUsers);
       
-      // Set a valid email
+      
       component.forgotPasswordForm.patchValue({
         email: 'john@example.com'
       });
       
       component.onRequestReset();
       
-      // User is found and step moves to verify
+      
       expect(component.step).toBe('verify');
       expect(component.userEmail).toBe('john@example.com');
     });
@@ -316,7 +316,7 @@ describe('ForgotPasswordComponent', () => {
     beforeEach(() => {
       fixture.detectChanges();
       
-      // Set up component state for verification step
+
       component.currentUser = { 
         fullname: 'John Doe', 
         username: 'john123', 
@@ -397,7 +397,7 @@ describe('ForgotPasswordComponent', () => {
     beforeEach(() => {
       fixture.detectChanges();
       
-      // Set up component state for reset step
+      
       const mockUsers = [
         { fullname: 'John Doe', username: 'john123', email: 'john@example.com', password: 'Pass@123' }
       ];
@@ -529,8 +529,8 @@ describe('ForgotPasswordComponent', () => {
       component.onResetPassword();
       
       const updatedUsers = JSON.parse(localStorageMock['signupdata']);
-      expect(updatedUsers[0].password).toBe('Pass@123'); // John's password unchanged
-      expect(updatedUsers[1].password).toBe('New@456'); // Jane's password updated
+      expect(updatedUsers[0].password).toBe('Pass@123'); 
+      expect(updatedUsers[1].password).toBe('New@456'); 
     });
   });
 
@@ -608,11 +608,11 @@ describe('ForgotPasswordComponent', () => {
     it('should handle password validation edge cases', () => {
       const password = component.forgotPasswordForm.get('newPassword');
       
-      // Exactly 10 characters with number and special char
+      
       password?.setValue('Pass@12345');
       expect(password?.valid).toBe(true);
       
-      // 11 characters (too long)
+      
       password?.setValue('Pass@123456');
       expect(password?.hasError('maxlength')).toBe(true);
     });
@@ -631,7 +631,7 @@ describe('ForgotPasswordComponent', () => {
       
       component.onRequestReset();
       
-      // Should not find user (case-sensitive email)
+      
       expect(window.alert).toHaveBeenCalledWith('No account found with this email address.');
     });
   });
@@ -645,21 +645,20 @@ describe('ForgotPasswordComponent', () => {
       ];
       localStorageMock['signupdata'] = JSON.stringify(mockUsers);
       
-      // Step 1: Request reset
+      
       component.forgotPasswordForm.patchValue({
         email: 'john@example.com'
       });
       component.onRequestReset();
       expect(component.step).toBe('verify');
       
-      // Step 2: Verify username
+      
       component.forgotPasswordForm.patchValue({
         securityAnswer: 'john123'
       });
       component.onVerifyUser();
       expect(component.step).toBe('reset');
       
-      // Step 3: Reset password
       component.forgotPasswordForm.patchValue({
         newPassword: 'New@123',
         confirmPassword: 'New@123'
@@ -679,26 +678,26 @@ describe('ForgotPasswordComponent', () => {
       ];
       localStorageMock['signupdata'] = JSON.stringify(mockUsers);
       
-      // Go to verify step
+      
       component.forgotPasswordForm.patchValue({ email: 'john@example.com' });
       component.onRequestReset();
       expect(component.step).toBe('verify');
       
-      // Go back to request
+    
       component.goBack();
       expect(component.step).toBe('request');
       
-      // Go to verify again
+     
       component.forgotPasswordForm.patchValue({ email: 'john@example.com' });
       component.onRequestReset();
       expect(component.step).toBe('verify');
       
-      // Go to reset
+      
       component.forgotPasswordForm.patchValue({ securityAnswer: 'john123' });
       component.onVerifyUser();
       expect(component.step).toBe('reset');
       
-      // Go back to verify
+      
       component.goBack();
       expect(component.step).toBe('verify');
     });

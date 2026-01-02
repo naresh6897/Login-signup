@@ -1,6 +1,6 @@
 <div class="container mt-4">
 
-  <!-- HEADER -->
+
   <div class="header">
     <div>
       <h4>Welcome, {{ username }}</h4>
@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <!-- FILTERS -->
+  
   <div class="filters">
     <select [(ngModel)]="selectedCategory" (change)="filterProducts()">
       <option value="">All Categories</option>
@@ -31,7 +31,7 @@
       (input)="filterProducts()">
   </div>
 
-  <!-- PRODUCTS -->
+  
   <div class="products">
     @for (item of filteredProductList; track $index) {
       <div class="product-card">
@@ -51,14 +51,14 @@
     }
   </div>
 
-  <!-- EMPTY STATE -->
+  
   @if (filteredProductList.length === 0) {
     <p class="text-center text-muted mt-4">
       No products found
     </p>
   }
 
-  <!-- CART -->
+  
   @if (cartList.length > 0) {
     <div class="cart">
       <h5>Cart Items</h5>

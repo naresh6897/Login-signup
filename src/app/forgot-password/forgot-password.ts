@@ -40,13 +40,13 @@ export class ForgotPasswordComponent {
       return;
     }
 
-    // Load users from localStorage
+    
     const localdata = localStorage.getItem('signupdata');
     this.usersdata = localdata ? JSON.parse(localdata) : [];
 
     const email = this.forgotPasswordForm.get('email')?.value.trim();
     
-    // Find user by email
+    
     this.currentUser = this.usersdata.find(
       (user: any) => user.email === email
     );
@@ -56,8 +56,6 @@ export class ForgotPasswordComponent {
       return;
     }
 
-    // In a real app, you'd send an email here
-    // For this demo, we'll show their username as a hint
     this.userEmail = email;
     this.step = 'verify';
     this.submitted = false;
@@ -68,7 +66,7 @@ export class ForgotPasswordComponent {
   onVerifyUser(): void {
     this.submitted = true;
 
-    // Simple verification: user must enter their username
+    
     const answer = this.forgotPasswordForm.get('securityAnswer')?.value.trim();
     
     if (!answer) {
@@ -80,7 +78,7 @@ export class ForgotPasswordComponent {
       return;
     }
 
-    // Move to reset password step
+    
     this.step = 'reset';
     this.submitted = false;
   }
@@ -105,7 +103,7 @@ export class ForgotPasswordComponent {
       return;
     }
 
-    // Update password in localStorage
+    
     const userIndex = this.usersdata.findIndex(
       (user: any) => user.email === this.userEmail
     );

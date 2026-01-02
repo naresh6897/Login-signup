@@ -51,7 +51,7 @@ export class Dashboard implements OnInit {
   ngOnInit(): void {
     this.filteredProductList = this.productList;
 
-    // load logged-in user
+
     const user = localStorage.getItem('currentUser');
     this.username = user ? user : 'User';
   }
@@ -77,7 +77,7 @@ export class Dashboard implements OnInit {
   }
 
   logout(): void {
-    // remove session only (remember-me stays)
+    // remove session only 
     localStorage.removeItem('isLoggedIn');
     this.router.navigateByUrl('/');
   }
